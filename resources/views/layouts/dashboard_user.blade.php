@@ -1,0 +1,1 @@
+<h2>Hai {{ Auth::user()->name }}</h2>

@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('siswas', function (Blueprint $table) {
+        Schema::create('siswas', function (Blueprint $table) {  
             $table->uuid('id')->primary()->unique();
             $table->string('nis')->unique();
+            $table->boolean('status')->default(true);
             $table->string('tahun_masuk_tk')->nullable();
             $table->string('tahun_masuk_sd')->nullable();
             $table->string('tahun_masuk_smp')->nullable();

@@ -7,16 +7,18 @@ use Illuminate\Http\Request;
 
 class SiswaController extends Controller
 {
-    public function index()
+    public function indexInSchool()
     {
-        $siswas = Siswa::with('rapot')->get();
-        return view('siswa.index', compact('siswas'));
+        $siswasMasihSekolah = Siswa::with('rapot')->where('status', true)->get();
+        return view('siswa.index_in_school', compact('siswasMasihSekolah'));
     }
 
-    public function create()
+    public function indexGraduated()
     {
-        return view('siswa.create');
+        $siswasLulus = Siswa::with('rapot')->where('status', false)->get();
+        return view('siswa.index_graduated', compact('siswasLulus'));
     }
+
 
     public function store(Request $request)
     {
