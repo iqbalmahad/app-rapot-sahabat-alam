@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('rapots', function (Blueprint $table) {
             $table->uuid('id')->primary()->unique();
+            $table->string('nis');
             $table->integer('tingkatan_kelas');
             $table->integer('semester');
             $table->string('rapot');

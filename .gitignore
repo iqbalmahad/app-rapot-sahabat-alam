@@ -2,6 +2,7 @@
 /node_modules
 /public/build
 /public/DataSiswa
+/public/DataRapot
 /public/hot
 /public/storage
 /storage/*.key
