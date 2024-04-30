@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\LoginController;
+use App\Http\Controllers\AuthenticatedSessionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,14 +20,14 @@ Route::get('/', function () {
 
 Route::get('/login', function () {
     return view('auth.login');
-})->name('login');
-Route::post('/login', [LoginController::class, 'authenticate']);
-Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+})->name('login')->middleware(['guest']);
+Route::post('/login', [AuthenticatedSessionController::class, 'store']);
+Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
     Route::get('/admin/dashboard', function () {
         return view('dashboard');
-    })->name('admin.dashboard')->middleware(['role:admin']);
+    })->name('admin.dashboard')->middleware(['auth', 'role:admin']);
 });

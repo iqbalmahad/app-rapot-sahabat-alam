@@ -20,13 +20,6 @@ class UserSeeder extends Seeder
             'password' => 'password', // Ganti dengan password yang sesuai
         ]);
 
-        // User::create([
-        //     'name' => 'Iqbal',
-        //     'username' => 'iqbalja',
-        //     'email' => 'iqbal@gmail.com',
-        //     'password' => 'password', // Ganti dengan password yang sesuai
-        // ]);
-
         // Assign role admin to the user
         $adminRole = Role::where('name', 'admin')->first();
         $admin->assignRole($adminRole);

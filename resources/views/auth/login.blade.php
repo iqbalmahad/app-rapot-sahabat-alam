@@ -9,14 +9,14 @@
 <body>
     <form method="POST" action="{{ route('login') }}">
         @csrf
-        <input type="text" name="email_or_username" placeholder="Email or Username" required>
-        <input type="password" name="password" placeholder="Password" required>
+        <input type="text" name="email_or_username" placeholder="Email or Username">
+        <input type="password" name="password" placeholder="Password">
         <button type="submit">Login</button>
     </form>
     @if ($errors->any())
         <div>
             @foreach ($errors->all() as $error)
-                <p>{{ $error }}</p>
+                <p style="color: red;">{{ $error }}</p>
             @endforeach
         </div>
     @endif
