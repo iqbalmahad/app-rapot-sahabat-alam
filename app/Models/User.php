@@ -3,7 +3,11 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Siswa;
 use Illuminate\Support\Str;
+use App\Models\Siswa\SiswaSD;
+use App\Models\Siswa\SiswaTK;
+use App\Models\Siswa\SiswaSMP;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
@@ -20,6 +24,7 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+    protected $fillable = ['name', 'username', 'email', 'password'];
     protected $keyType = 'string';
     public $incrementing = false;
 
@@ -54,5 +59,20 @@ class User extends Authenticatable
     public function siswa()
     {
         return $this->hasOne(Siswa::class, 'user_id', 'id');
+    }
+
+    public function siswaTk()
+    {
+        return $this->hasOne(SiswaTK::class, 'user_id', 'id');
+    }
+
+    public function siswaSd()
+    {
+        return $this->hasOne(SiswaSD::class, 'user_id', 'id');
+    }
+
+    public function siswaSmp()
+    {
+        return $this->hasOne(SiswaSMP::class, 'user_id', 'id');
     }
 }

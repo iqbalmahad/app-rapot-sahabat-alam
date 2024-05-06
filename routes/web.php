@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\SiswaController;
 use App\Http\Controllers\Auth\ProfileController;
+use App\Http\Controllers\Admin\SD\SiswaSDController;
+use App\Http\Controllers\Admin\TK\SiswaTKController;
+use App\Http\Controllers\Admin\SMP\SiswaSMPController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 /*
@@ -42,7 +45,9 @@ Route::middleware('guest')->group(function () {
 
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
-
+    Route::resource('siswa-tk', SiswaTKController::class);
+    Route::resource('siswa-sd', SiswaSDController::class);
+    Route::resource('siswa-smp', SiswaSMPController::class);
     Route::resource('students', SiswaController::class)->except(['show', 'index']);
     Route::get('/students/in-school', [SiswaController::class, 'indexInSchool'])->name('students.inschool');
     Route::get('/students/graduated', [SiswaController::class, 'indexGraduated'])->name('students.graduated');

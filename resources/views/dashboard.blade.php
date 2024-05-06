@@ -1,11 +1,13 @@
 @extends('template.main')
 @section('content')
 <!-- Begin Page Content -->
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+    </ol>
+</nav>
 <div class="container-fluid">
-
-    <div class="pagetitle">
-        <h1>Dashboard</h1>
-    </div>
+    
     @if (Auth::user()->hasRole('admin'))
         @include('layouts.dashboard_admin')
     @else

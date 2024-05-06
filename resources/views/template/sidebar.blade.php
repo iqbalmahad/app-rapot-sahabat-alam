@@ -45,18 +45,18 @@
                     </div>
                 </li>    --}}
                 <li class="nav-item">
-                    <a class="nav-link" href="/">
-                        <i class="fas fa-fw fa-angle-double-up"></i>
+                    <a class="nav-link" href="{{ route('siswa-tk.index') }}">
+                        <i class="fa fa-university" aria-hidden="true"></i>
                         <span>TK</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/">
-                        <i class="fas fa-fw fa-angle-double-up"></i>
+                    <a class="nav-link" href="{{ route('siswa-sd.index') }}">
+                        <i class="fa fa-university" aria-hidden="true"></i>
                         <span>SD</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/">
-                        <i class="fas fa-fw fa-angle-double-up"></i>
+                    <a class="nav-link" href="{{ route('siswa-smp.index') }}">
+                        <i class="fa fa-university" aria-hidden="true"></i>
                         <span>SMP</span></a>
                 </li>
             @else
