@@ -22,7 +22,7 @@ class RapotImport implements ToModel
             'tingkatan_kelas' => $row[2],
             'semester' => $row[3],
             'rapot' => $row[4],
-            'siswa_uuid' => $siswa->id,
+            'siswa_id' => $siswa->id,
         ]);
     }
 }

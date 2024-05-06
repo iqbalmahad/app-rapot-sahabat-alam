@@ -14,6 +14,7 @@ class Siswa extends Model
 
     protected $fillable = ['nis', 'tahun_masuk_tk', 'tahun_masuk_sd', 'tahun_masuk_smp', 'user_uuid'];
     protected $keyType = 'string';
+    protected $primaryKey = 'id';
     public $incrementing = false;
 
     protected static function boot()
@@ -26,11 +27,11 @@ class Siswa extends Model
 
     public function rapot()
     {
-        return $this->hasMany(Rapot::class);
+        return $this->hasMany(Rapot::class, 'siswa_id', 'id');
     }
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_uuid');
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 }

@@ -24,7 +24,7 @@ class UserImport implements ToModel
 
         $siswaData = [
             'nis' => $row[2],
-            'user_uuid' => $user->id,
+            'user_id' => $user->id,
         ];
 
         // Tambahkan tahun_masuk_tk, tahun_masuk_sd, tahun_masuk_smp jika ada nilai yang disediakan

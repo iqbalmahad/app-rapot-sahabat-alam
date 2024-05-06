@@ -17,8 +17,8 @@ return new class extends Migration
             $table->integer('tingkatan_kelas');
             $table->integer('semester');
             $table->string('rapot');
-            $table->uuid('siswa_uuid');
-            $table->foreign('siswa_uuid')->references('id')->on('siswas');
+            $table->uuid('siswa_id');
+            $table->foreign('siswa_id')->references('id')->on('siswas');
             $table->timestamps();
         });
     }

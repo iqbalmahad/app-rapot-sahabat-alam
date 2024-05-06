@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\SiswaController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\AuthenticatedSessionController;
+use App\Http\Controllers\Admin\SiswaController;
+use App\Http\Controllers\Auth\ProfileController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +20,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::post('/login', [AuthenticatedSessionController::class, 'store']);
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', function () {
@@ -35,10 +36,19 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware('guest')->group(function () {
     Route::get('/login', function () {
         return view('auth.login');
-    })->name('login')->middleware(['guest']);
+    })->name('login');
     Route::post('/login', [AuthenticatedSessionController::class, 'store']);
 });
 
-Route::resource('students', SiswaController::class)->except(['show', 'index']);
-Route::get('/students/in-school', [SiswaController::class, 'indexInSchool'])->name('students.inschool');
-Route::get('/students/graduated', [SiswaController::class, 'indexGraduated'])->name('students.graduated');
+
+Route::middleware(['auth', 'role:admin'])->group(function () {
+
+    Route::resource('students', SiswaController::class)->except(['show', 'index']);
+    Route::get('/students/in-school', [SiswaController::class, 'indexInSchool'])->name('students.inschool');
+    Route::get('/students/graduated', [SiswaController::class, 'indexGraduated'])->name('students.graduated');
+    Route::get('/rapot', function () {
+        return view('auth.login');
+    })->name('lihatrapotasuser');
+
+    Route::get('/students/{student}', [SiswaController::class, 'show'])->name('students.show');
+});

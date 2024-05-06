@@ -20,7 +20,6 @@
         <link href="{{ url('dist/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ url('dist/css/sb-admin-2.min.css') }}" rel="stylesheet">
         <link href="{{ url('dist/css/mystyle.css') }}" rel="stylesheet">
-        <link href="{{ url('dist/css/wizard.css') }}" rel="stylesheet">
 
 </head>
 <body id="page-top">
@@ -52,7 +51,10 @@
     </script>
     
 
-    <script src="{{ url('dist/vendor/jquery/jquery.min.js') }}"></script>
+    {{-- <script src="{{ url('dist/vendor/jquery/jquery.min.js') }}"></script>
+    --}}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     <script src="{{ url('dist/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     
     <!-- Core plugin JavaScript-->

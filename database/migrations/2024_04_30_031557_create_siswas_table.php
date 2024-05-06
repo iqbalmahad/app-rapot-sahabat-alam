@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('tahun_masuk_tk')->nullable();
             $table->string('tahun_masuk_sd')->nullable();
             $table->string('tahun_masuk_smp')->nullable();
-            $table->uuid('user_uuid');
-            $table->foreign('user_uuid')->references('id')->on('users');
+            $table->uuid('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }
