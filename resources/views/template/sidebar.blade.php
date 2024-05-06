@@ -29,13 +29,13 @@
             
             @if (Auth::user()->hasRole('admin'))
                 <!-- Nav Item - Pages Collapse Menu -->
-                <li class="nav-item">
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                        aria-expanded="true" aria-controls="collapseTwo">
+                {{-- <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne"
+                        aria-expanded="true" aria-controls="collapseOne">
                         <i class="fas fa-fw fa-users"></i>
                         <span>Siswa</span>
                     </a>
-                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div id="collapseOne" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Status Siswa:</h6>
                             <a class="collapse-item" href="{{ route('students.inschool') }}">Masih Sekolah</a>
@@ -43,7 +43,22 @@
                             
                         </div>
                     </div>
-                </li>   
+                </li>    --}}
+                <li class="nav-item">
+                    <a class="nav-link" href="/">
+                        <i class="fas fa-fw fa-angle-double-up"></i>
+                        <span>TK</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/">
+                        <i class="fas fa-fw fa-angle-double-up"></i>
+                        <span>SD</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/">
+                        <i class="fas fa-fw fa-angle-double-up"></i>
+                        <span>SMP</span></a>
+                </li>
             @else
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('lihatrapotasuser') }}">
