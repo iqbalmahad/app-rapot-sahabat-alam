@@ -11,16 +11,28 @@ use App\Http\Controllers\Controller;
 class SiswaSMPController extends Controller
 {
     // Menampilkan semua data siswa SMP
-    public function index()
+    public function index(Request $request)
     {
-        $siswas = SiswaSMP::whereNotNull('tahun_masuk_smp')->orderBy('tahun_masuk_smp')->get();
+        $search = $request->input('search');
+        $query = SiswaSMP::whereNotNull('tahun_masuk_smp')->orderBy('tahun_masuk_smp');
+
+        if ($search) {
+            $query->whereHas('user', function ($q) use ($search) {
+                $q->where('name', 'like', "%$search%")
+                    ->orWhere('nis', 'like', "%$search%")
+                    ->orWhere('tahun_masuk_smp', 'like', "%$search%");
+            });
+        }
+
+        $siswas = $query->take(500)->paginate(10);
+
         return view('admin.siswa_smp.index', compact('siswas'));
     }
 
     // Menampilkan form untuk membuat data siswa SMP baru
     public function create()
     {
-        return view('siswa_smp.create');
+        return view('admin.siswa_smp.create');
     }
 
     // Menyimpan data siswa SMP baru ke database
@@ -41,14 +53,14 @@ class SiswaSMPController extends Controller
     // Menampilkan detail data siswa SMP
     public function show($id)
     {
-        $siswa = SiswaSMP::findOrFail($id);
-        return view('siswa_smp.show', compact('siswa'));
+        $siswa = SiswaSMP::with('user')->where('nis', $id)->first();
+        return view('admin.siswa_smp.show', compact('siswa'));
     }
 
     // Menampilkan form untuk mengedit data siswa SMP
     public function edit($id)
     {
-        $siswa = SiswaSMP::where('nis', $id)->first();
+        $siswa = SiswaSMP::with('user')->where('nis', $id)->first();
         return view('admin.siswa_smp.edit', compact('siswa'));
     }
 
@@ -92,7 +104,7 @@ class SiswaSMPController extends Controller
 
         $user->delete();
 
-        return redirect()->route('siswa_smp.index')
+        return redirect()->route('siswa-smp.index')
             ->with('success', 'Data siswa SMP berhasil dihapus.');
     }
 }

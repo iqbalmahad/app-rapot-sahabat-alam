@@ -11,30 +11,38 @@
 <div class="card">
     <div class="card-body">
         <!-- Form Pencarian -->
-        {{-- {{ route('students.inschool') }} nanti taruh di action --}}
-        <form action="/" method="GET">
-            <input type="text"  name="search" placeholder="Search..." value="{{ request()->input('search') }}">
-            <button type="submit" class="mb-3 text-white bg-primary border-0">Search</button>
-        </form>
+        <div class="d-flex justify-content-between mb-3">
+            <form class="form-inline" action="{{ route('siswa-sd.index') }}" method="GET">
+                <input type="text" name="search" class="form-control mr-sm-2" placeholder="Search..." value="{{ request()->input('search') }}">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+            <a class="btn btn-outline-primary" href="{{ route('siswa-sd.create') }}">tambah siswa</a>
+        </div>
         <table  class="table datatable table-hover table-bordered">
             <thead>
-            <tr>
-                <th>NIS</th>
-                <th>Nama</th>
-                <th>Tahun Masuk</th>
-                <th>Rapot</th>
-                <th>Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            
-            @foreach ($siswas as $siswa)
-            
-            <tr>
-                <td>{{ $siswa->nis }}</td>
-                <td>{{ $siswa->user->name }}</td>
-                <td>{{ $siswa->tahun_masuk_sd }}</td>
-                <td>rapot</td>
+                <tr>
+                    <th>NIS</th>
+                    <th>Nama</th>
+                    <th>Tahun Masuk</th>
+                    <th>Status</th>
+                    <th>Rapot</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                
+                @foreach ($siswas as $siswa)
+                
+                <tr>
+                    <td>{{ $siswa->nis }}</td>
+                    <td>{{ $siswa->user->name }}</td>
+                    <td>{{ $siswa->tahun_masuk_sd }}</td>
+                    @if ($siswa->status == 1)
+                    <td>Masih Sekolah</td>
+                    @else
+                    <td>Alumni</td>
+                    @endif
+                    <td>rapot</td>
                 <td>
                     <a class="btn btn-info" href="{{ route('siswa-sd.show', ['siswa_sd' => $siswa->nis]) }}"><i class="fas fa-fw fa-eye"></i></a>
                     <a class="btn btn-primary" href="{{ route('siswa-sd.edit', ['siswa_sd' => $siswa->nis]) }}"><i class="fas fa-fw fa-edit"></i> Edit</a>
@@ -48,6 +56,9 @@
             @endforeach
             </tbody>
         </table>
+        <div class="d-flex justify-content-center mt-4">
+            {{ $siswas->links('pagination::bootstrap-4') }}
+        </div>  
     </div>
 </div>
 </div>

@@ -12,11 +12,23 @@ class SiswaTKController extends Controller
 {
 
     // Menampilkan semua data siswa TK
-    public function index()
+    public function index(Request $request)
     {
-        $siswas = SiswaTK::whereNull('tahun_masuk_sd')->whereNull('tahun_masuk_smp')->orderBy('tahun_masuk_tk')->get();
+        $search = $request->input('search');
+        $query = SiswaTK::whereNull('tahun_masuk_sd')->whereNull('tahun_masuk_smp')->orderBy('tahun_masuk_tk');
+
+        if ($search) {
+            $query->whereHas('user', function ($q) use ($search) {
+                $q->where('name', 'like', "%$search%")
+                    ->orWhere('nis', 'like', "%$search%")
+                    ->orWhere('tahun_masuk_tk', 'like', "%$search%");
+            });
+        }
+
+        $siswas = $query->take(500)->paginate(10);
         return view('admin.siswa_tk.index', compact('siswas'));
     }
+
 
     // Menampilkan form untuk membuat data siswa TK baru
     public function create()
@@ -41,8 +53,8 @@ class SiswaTKController extends Controller
     // Menampilkan detail data siswa TK
     public function show($id)
     {
-        $siswa = SiswaTK::findOrFail($id);
-        return view('siswa.show', compact('siswa'));
+        $siswa = SiswaTK::with('user')->where('nis', $id)->first();
+        return view('admin.siswa_tk.show', compact('siswa'));
     }
 
     // Menampilkan form untuk mengedit data siswa TK
@@ -91,7 +103,7 @@ class SiswaTKController extends Controller
 
         $user->delete();
 
-        return redirect()->route('siswa.index')
+        return redirect()->route('siswa-tk.index')
             ->with('success', 'Data siswa TK berhasil dihapus.');
     }
 }

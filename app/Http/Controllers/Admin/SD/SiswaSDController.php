@@ -11,11 +11,23 @@ use App\Models\Siswa;
 class SiswaSDController extends Controller
 {
     // Menampilkan semua data siswa SD
-    public function index()
+    public function index(Request $request)
     {
-        $siswas = SiswaSD::whereNotNull('tahun_masuk_sd')->whereNull('tahun_masuk_smp')->orderBy('tahun_masuk_sd')->get();
+        $search = $request->input('search');
+        $query = SiswaSD::whereNotNull('tahun_masuk_sd')->whereNull('tahun_masuk_smp')->orderBy('tahun_masuk_sd');
+
+        if ($search) {
+            $query->whereHas('user', function ($q) use ($search) {
+                $q->where('name', 'like', "%$search%")
+                    ->orWhere('nis', 'like', "%$search%")
+                    ->orWhere('tahun_masuk_sd', 'like', "%$search%");
+            });
+        }
+
+        $siswas = $query->take(500)->paginate(10);
         return view('admin.siswa_sd.index', compact('siswas'));
     }
+
 
     // Menampilkan form untuk membuat data siswa SD baru
     public function create()
@@ -41,8 +53,8 @@ class SiswaSDController extends Controller
     // Menampilkan detail data siswa SD
     public function show($id)
     {
-        $siswa = SiswaSD::findOrFail($id);
-        return view('siswa_sd.show', compact('siswa'));
+        $siswa = SiswaSD::with('user')->where('nis', $id)->first();
+        return view('admin.siswa_sd.show', compact('siswa'));
     }
 
     // Menampilkan form untuk mengedit data siswa SD
