@@ -44,7 +44,7 @@
                             @else
                             <td>Alumni</td>
                             @endif
-                            <td>rapot</td>
+                            <td><a href="{{ route('rapot.show', ['rapot' => $siswa->nis]) }}">lihat rapot</a></td>
                         <td>
                             <a class="btn btn-info" href="{{ route('siswa-smp.show', ['siswa_smp' => $siswa->nis]) }}"><i class="fas fa-fw fa-eye"></i></a>
                             <a class="btn btn-primary" href="{{ route('siswa-smp.edit', ['siswa_smp' => $siswa->nis]) }}"><i class="fas fa-fw fa-edit"></i> Edit</a>
