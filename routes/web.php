@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\ProfileController;
 use App\Http\Controllers\Admin\SD\SiswaSDController;
 use App\Http\Controllers\Admin\TK\SiswaTKController;
 use App\Http\Controllers\Admin\SMP\SiswaSMPController;
+use App\Http\Controllers\Siswa\HakAksesSiswaController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 /*
@@ -27,14 +28,19 @@ Route::get('/', function () {
 
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+
     Route::get('/admin/dashboard', function () {
         return view('dashboard');
-    })->name('admin.dashboard')->middleware(['auth', 'role:admin']);
+    })->name('admin.dashboard')->middleware(['role:admin']);
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
-    Route::post('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::get('/profile/password-edit', [ProfileController::class, 'editPassword'])->name('profile.password-edit');
+    Route::post('/profile/password-edit', [ProfileController::class, 'updatePassword'])->name('profile.password-update');
+    Route::middleware(['role:client'])->group(function () {
+        Route::get('/dashboard', function () {
+            return view('dashboard');
+        })->name('dashboard');
+        Route::get('/lihat-rapot', [HakAksesSiswaController::class, 'lihatRapot'])->name('lihatrapotasuser');
+    });
 });
 
 Route::middleware('guest')->group(function () {
@@ -57,5 +63,4 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::post('/import-siswa-sd', [ImportController::class, 'storeImportSiswaSD'])->name('siswa-sd.import');
     Route::get('/import-siswa-smp', [ImportController::class, 'getImportSiswaSMP']);
     Route::post('/import-siswa-smp', [ImportController::class, 'storeImportSiswaSMP'])->name('siswa-smp.import');
-    Route::get('/import-rapot', [ImportController::class, 'getImportRapot']);
 });

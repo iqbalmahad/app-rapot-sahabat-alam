@@ -2,7 +2,7 @@
 @section('content')
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
+    <li class="breadcrumb-item"><a href="/admin/dashboard">Dashboard</a></li>
     <li class="breadcrumb-item"><a href="/siswa-sd">Siswa SD</a></li>
     <li class="breadcrumb-item active" aria-current="page">Create</li>
     </ol>

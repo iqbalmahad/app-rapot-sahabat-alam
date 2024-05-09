@@ -17,8 +17,18 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+
+
         if (Auth::user()->hasRole('admin')) {
+            // Check if the user is logging in for the first time
+            if (Auth::user()->is_first_visit == 1) {
+                return redirect()->intended('/profile/password-edit')->with('info', 'Silakan perbarui password Anda untuk menjaga keamanan data.');
+            }
             return redirect()->intended('admin/dashboard');
+        }
+        // Check if the user is logging in for the first time
+        if (Auth::user()->is_first_visit == 1) {
+            return redirect()->route('profile.password-edit')->with('info', 'Silakan perbarui password Anda untuk menjaga keamanan data.');
         }
         return redirect()->intended('dashboard');
 
@@ -26,7 +36,6 @@ class AuthenticatedSessionController extends Controller
             'email_or_username' => 'The provided credentials do not match our records.',
         ]);
     }
-    // Metode lain...
 
     public function destroy(Request $request): RedirectResponse
     {

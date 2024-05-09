@@ -13,5 +13,6 @@
     @else
         @include('layouts.dashboard_user') 
     @endif
+    
 </div>
 @endsection

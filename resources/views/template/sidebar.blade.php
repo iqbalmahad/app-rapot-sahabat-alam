@@ -57,14 +57,13 @@
                             <a class="collapse-item" href="/import-siswa-tk">Import Siswa TK</a>
                             <a class="collapse-item" href="/import-siswa-sd">Import Siswa SD</a>
                             <a class="collapse-item" href="/import-siswa-smp">Import Siswa SMP</a>
-                            <a class="collapse-item" href="/import-rapot">Import Rapot</a>
                         </div>
                     </div>
                 </li>
             @else
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('lihatrapotasuser') }}">
-                        <i class="fas fa-fw fa-angle-double-up"></i>
+                        <i class="fas fa-fw fa-file"></i>
                         <span>Rapot</span></a>
                 </li>
             @endif

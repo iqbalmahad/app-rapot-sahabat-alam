@@ -2,6 +2,7 @@
 
 namespace App\Imports;
 
+use App\Models\Role;
 use App\Models\User;
 use App\Models\Siswa;
 use Maatwebsite\Excel\Concerns\ToModel;
@@ -21,6 +22,9 @@ class UserImport implements ToModel
             'username' => $row[2],
             'password' => $row[3],
         ]);
+
+        $userRole = Role::where('name', 'client')->first();
+        $user->assignRole($userRole);
 
         $siswaData = [
             'nis' => $row[2],
