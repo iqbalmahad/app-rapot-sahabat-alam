@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\SiswaController;
 use App\Http\Controllers\Admin\ExportController;
 use App\Http\Controllers\Admin\ImportController;
 use App\Http\Controllers\Auth\ProfileController;
+use App\Http\Controllers\Admin\AksesAdminController;
 use App\Http\Controllers\Admin\SD\SiswaSDController;
 use App\Http\Controllers\Admin\TK\SiswaTKController;
 use App\Http\Controllers\Admin\SMP\SiswaSMPController;
@@ -50,6 +51,18 @@ Route::middleware('guest')->group(function () {
 
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/siswa-tk/pilih-tahun-lulus', [AksesAdminController::class, 'pilihTahunLulusTK'])->name('pilih-tahun-lulus-tk');
+    Route::get('/siswa-tk/filter', [AksesAdminController::class, 'filterTK'])->name('siswaTK.filter');
+    Route::post('/siswa-tk/process', [AksesAdminController::class, 'processTK'])->name('siswaTK.process');
+
+    Route::get('/siswa-sd/pilih-tahun-lulus', [AksesAdminController::class, 'pilihTahunLulusSD'])->name('pilih-tahun-lulus-sd');
+    Route::get('/siswa-sd/filter', [AksesAdminController::class, 'filterSD'])->name('siswaSD.filter');
+    Route::post('/siswa-sd/process', [AksesAdminController::class, 'processSD'])->name('siswaSD.process');
+
+    Route::get('/siswa-SMP/pilih-tahun-lulus', [AksesAdminController::class, 'pilihTahunLulusSMP'])->name('pilih-tahun-lulus-smp');
+    Route::get('/siswa-SMP/filter', [AksesAdminController::class, 'filterSMP'])->name('siswaSMP.filter');
+    Route::post('/siswa-SMP/process', [AksesAdminController::class, 'processSMP'])->name('siswaSMP.process');
+
     Route::resource('siswa-tk', SiswaTKController::class);
     Route::resource('siswa-sd', SiswaSDController::class);
     Route::resource('siswa-smp', SiswaSMPController::class);

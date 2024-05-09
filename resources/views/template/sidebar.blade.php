@@ -28,6 +28,23 @@
             </div>
             
             @if (Auth::user()->hasRole('admin'))
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#aksesAdmin"
+                    aria-expanded="true" aria-controls="aksesAdmin">
+                    <i class="fa fa-key" aria-hidden="true"></i>
+                    <span>Akses Admin</span>
+                </a>
+                <div id="aksesAdmin" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Hak Akses:</h6>
+                        <a class="collapse-item" href="{{ route('pilih-tahun-lulus-tk') }}">Luluskan Siswa TK</a>
+                        <a class="collapse-item" href="{{ route('pilih-tahun-lulus-sd') }}">Luluskan Siswa SD</a>
+                        <a class="collapse-item" href="{{ route('pilih-tahun-lulus-smp') }}">Luluskan Siswa SMP</a>
+                    </div>
+                </div>
+            </li>
+
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('siswa-tk.index') }}">
                         <i class="fa fa-university" aria-hidden="true"></i>
