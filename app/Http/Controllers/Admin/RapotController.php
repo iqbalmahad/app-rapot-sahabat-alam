@@ -97,7 +97,7 @@ class RapotController extends Controller
 
         $rapot->save();
 
-        return redirect()->route('rapot.show', ['rapot' => $rapot->nis])->with('success', 'Rapot berhasil di-update.');
+        return redirect()->route('rapot.show', ['rapot' => $rapot->nis])->with('successupdate', 'Rapot berhasil di-update.');
     }
 
 
@@ -113,6 +113,6 @@ class RapotController extends Controller
         $rapot->delete();
 
         // Redirect ke halaman rapot.show dengan mengirim parameter nis
-        return redirect()->route('rapot.show', ['rapot' => $nis])->with('success', 'Rapot berhasil dihapus.');
+        return redirect()->route('rapot.show', ['rapot' => $nis])->with('delete', 'Rapot berhasil dihapus.');
     }
 }
