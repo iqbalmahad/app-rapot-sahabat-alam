@@ -40,6 +40,17 @@ class RapotController extends Controller
             'siswa_id' => 'required|exists:siswas,id',
         ]);
 
+        // Cek apakah rapot sudah ada untuk nis dan semester yang sama
+        $existingRapot = Rapot::where('nis', $validatedData['nis'])
+            ->where('tingkatan_kelas', $validatedData['tingkatan_kelas'])
+            ->where('semester', $validatedData['semester'])
+            ->first();
+
+        // Jika rapot sudah ada, maka redirect kembali dengan pesan error
+        if ($existingRapot) {
+            return redirect()->back()->withInput()->withErrors(['rapot' => 'Rapot untuk siswa dan semester yang sama sudah ada.']);
+        }
+
         // Buat instance baru dari model Rapot
         $rapot = new Rapot();
         $rapot->nis = $validatedData['nis'];

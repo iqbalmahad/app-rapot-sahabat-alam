@@ -34,7 +34,17 @@
             @foreach ($rapots as $rapot)
             
             <tr>
-                <td>Kelas {{ $rapot->tingkatan_kelas }}</td>
+                <td>
+                    @if($rapot->tingkatan_kelas == 'play_group')
+                        Play Group
+                    @elseif($rapot->tingkatan_kelas == 'tk_a')
+                        TK A
+                    @elseif($rapot->tingkatan_kelas == 'tk_b')
+                        TK B
+                    @else
+                        Kelas {{ $rapot->tingkatan_kelas }}
+                    @endif
+                </td>
                 <td>{{ $rapot->semester }}</td>
                 <td><a href="{{  $rapot->rapot  }}">link download</a></td>
                 <td>

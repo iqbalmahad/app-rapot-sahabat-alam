@@ -28,22 +28,6 @@
             </div>
             
             @if (Auth::user()->hasRole('admin'))
-                <!-- Nav Item - Pages Collapse Menu -->
-                {{-- <li class="nav-item">
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne"
-                        aria-expanded="true" aria-controls="collapseOne">
-                        <i class="fas fa-fw fa-users"></i>
-                        <span>Siswa</span>
-                    </a>
-                    <div id="collapseOne" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                        <div class="bg-white py-2 collapse-inner rounded">
-                            <h6 class="collapse-header">Status Siswa:</h6>
-                            <a class="collapse-item" href="{{ route('students.inschool') }}">Masih Sekolah</a>
-                            <a class="collapse-item" href="{{ route('students.graduated') }}">Sudah Lulus</a>
-                            
-                        </div>
-                    </div>
-                </li>    --}}
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('siswa-tk.index') }}">
                         <i class="fa fa-university" aria-hidden="true"></i>
@@ -58,6 +42,24 @@
                     <a class="nav-link" href="{{ route('siswa-smp.index') }}">
                         <i class="fa fa-university" aria-hidden="true"></i>
                         <span>SMP</span></a>
+                </li>
+                <hr class="sidebar-divider d-none d-md-block">
+                <!-- Nav Item - Pages Collapse Menu -->
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#importData"
+                        aria-expanded="true" aria-controls="importData">
+                        <i class="fa fa-upload" aria-hidden="true"></i>
+                        <span>Import Data</span>
+                    </a>
+                    <div id="importData" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Import Data:</h6>
+                            <a class="collapse-item" href="/import-siswa-tk">Import Siswa TK</a>
+                            <a class="collapse-item" href="/import-siswa-sd">Import Siswa SD</a>
+                            <a class="collapse-item" href="/import-siswa-smp">Import Siswa SMP</a>
+                            <a class="collapse-item" href="/import-rapot">Import Rapot</a>
+                        </div>
+                    </div>
                 </li>
             @else
                 <li class="nav-item">
