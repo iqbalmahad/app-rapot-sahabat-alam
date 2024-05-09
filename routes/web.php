@@ -48,5 +48,6 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('siswa-tk', SiswaTKController::class);
     Route::resource('siswa-sd', SiswaSDController::class);
     Route::resource('siswa-smp', SiswaSMPController::class);
-    Route::resource('rapot', RapotController::class)->except(['index']);
+    Route::resource('rapot', RapotController::class)->except(['index', 'create']);
+    Route::get('/rapot/{rapot}/create', [RapotController::class, 'create'])->name('rapot.create');
 });

@@ -23,7 +23,7 @@
         </p>
         <!-- Form Pencarian -->
         <div class="d-flex justify-content-between mb-3">
-            <a class="btn btn-outline-primary" href="{{ route('rapot.create') }}">tambah rapot</a>
+            <a class="btn btn-outline-primary" href="{{ route('rapot.create', $siswa->nis) }}">tambah rapot</a>
         </div>
     </div>
 </div>
