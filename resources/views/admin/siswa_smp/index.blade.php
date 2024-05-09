@@ -6,9 +6,23 @@
             <li class="breadcrumb-item active" aria-current="page">Siswa SMP</li>
         </ol>
     </nav>
-
+    
     <div class="container-fluid">
-
+        @if (session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+        </div>
+        @endif
+        @if (session('successupdate'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('successupdate') }}
+        </div>
+        @endif
+        @if (session('delete'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ session('delete') }}
+        </div>
+        @endif
         <div class="card">
             <div class="card-body">
                 <!-- Form Pencarian -->

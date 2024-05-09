@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\RapotController;
 use App\Http\Controllers\Admin\SiswaController;
+use App\Http\Controllers\Admin\ExportController;
 use App\Http\Controllers\Admin\ImportController;
 use App\Http\Controllers\Auth\ProfileController;
 use App\Http\Controllers\Admin\SD\SiswaSDController;
@@ -35,6 +36,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
     Route::get('/profile/password-edit', [ProfileController::class, 'editPassword'])->name('profile.password-edit');
     Route::post('/profile/password-edit', [ProfileController::class, 'updatePassword'])->name('profile.password-update');
+
     Route::middleware(['role:client'])->group(function () {
         Route::get('/dashboard', function () {
             return view('dashboard');
@@ -63,4 +65,6 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::post('/import-siswa-sd', [ImportController::class, 'storeImportSiswaSD'])->name('siswa-sd.import');
     Route::get('/import-siswa-smp', [ImportController::class, 'getImportSiswaSMP']);
     Route::post('/import-siswa-smp', [ImportController::class, 'storeImportSiswaSMP'])->name('siswa-smp.import');
+    Route::get('/export-siswa', [ExportController::class, 'exportSiswa'])->name('export.siswa');
+    Route::get('/export-rapot', [ExportController::class, 'exportRapot'])->name('export.rapot');
 });

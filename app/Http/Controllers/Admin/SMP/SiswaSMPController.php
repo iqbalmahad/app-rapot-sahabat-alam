@@ -101,7 +101,7 @@ class SiswaSMPController extends Controller
         ]);
 
         return redirect()->route('siswa-smp.index')
-            ->with('success', 'Data siswa SMP berhasil diperbarui.');
+            ->with('successupdate', 'Data siswa SMP berhasil diperbarui.');
     }
 
     // Menghapus data siswa SMP dari database
@@ -117,6 +117,6 @@ class SiswaSMPController extends Controller
         $user->delete();
 
         return redirect()->route('siswa-smp.index')
-            ->with('success', 'Data siswa SMP berhasil dihapus.');
+            ->with('delete', 'Data siswa SMP berhasil dihapus.');
     }
 }

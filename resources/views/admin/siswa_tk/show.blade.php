@@ -35,6 +35,9 @@
                              tidak ada data
                          @endif</li>
                     </ul>
+                    <hr>
+                    <a class="btn btn-primary" href="{{ route('siswa-tk.index') }}">kembali</a>
+
                 </div>
             </div>
         </div>

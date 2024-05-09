@@ -60,6 +60,17 @@
                         </div>
                     </div>
                 </li>
+                <hr class="sidebar-divider d-none d-md-block">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('export.siswa') }}">
+                        <i class="fa fa-download" aria-hidden="true"></i>
+                        <span>backup data siswa</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('export.rapot') }}">
+                        <i class="fa fa-download" aria-hidden="true"></i>
+                        <span>backup data rapot</span></a>
+                </li>
             @else
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('lihatrapotasuser') }}">
