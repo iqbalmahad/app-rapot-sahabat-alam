@@ -33,21 +33,34 @@ class SiswaTKController extends Controller
     // Menampilkan form untuk membuat data siswa TK baru
     public function create()
     {
-        return view('siswa.create');
+        return view('admin.siswa_tk.create');
     }
 
     // Menyimpan data siswa TK baru ke database
     public function store(Request $request)
     {
+        // Validasi input data
         $request->validate([
+            'name' => 'required|string|max:255',
             'nis' => 'required|unique:siswas,nis',
-            'tahun_masuk_tk' => 'nullable',
+            'tahun_masuk_tk' => 'required|string|max:255',
         ]);
 
-        SiswaTK::create($request->all());
+        $user = new User();
+        $user->name = $request->name;
+        $user->username = $request->nis;
+        $user->email = null;
+        $user->password = 'password';
+        $user->save();
 
-        return redirect()->route('siswa.index')
-            ->with('success', 'Siswa TK berhasil ditambahkan.');
+        $siswa = new SiswaTK();
+        $siswa->nis = $request->nis;
+        $siswa->tahun_masuk_tk = $request->tahun_masuk_tk;
+        $siswa->user_id = $user->id;
+        $siswa->save();
+
+        // Redirect ke halaman yang dituju setelah berhasil menyimpan data
+        return redirect()->route('siswa-tk.index')->with('success', 'Siswa berhasil ditambahkan.');
     }
 
     // Menampilkan detail data siswa TK
@@ -70,7 +83,7 @@ class SiswaTKController extends Controller
         $request->validate([
             'name' => 'required',
             'nis' => 'required|unique:siswas,nis,' . $id,
-            'status' => 'required',
+            'status' => 'required|numeric',
             'tahun_masuk_tk' => 'nullable',
         ]);
         $siswa = SiswaTK::findOrFail($id);

@@ -32,22 +32,34 @@ class SiswaSDController extends Controller
     // Menampilkan form untuk membuat data siswa SD baru
     public function create()
     {
-        return view('siswa_sd.create');
+        return view('admin.siswa_sd.create');
     }
 
     // Menyimpan data siswa SD baru ke database
     public function store(Request $request)
     {
+        // Validasi input data
         $request->validate([
-            'nis' => 'required|unique:siswa_sd,nis',
-            'tahun_masuk_sd' => 'nullable',
-            // tambahkan validasi lainnya sesuai kebutuhan
+            'name' => 'required|string|max:255',
+            'nis' => 'required|unique:siswas,nis',
+            'tahun_masuk_sd' => 'required|string|max:255',
         ]);
 
-        SiswaSD::create($request->all());
+        $user = new User();
+        $user->name = $request->name;
+        $user->username = $request->nis;
+        $user->email = null;
+        $user->password = 'password';
+        $user->save();
 
-        return redirect()->route('siswa-sd.index')
-            ->with('success', 'Siswa SD berhasil ditambahkan.');
+        $siswa = new SiswaSD();
+        $siswa->nis = $request->nis;
+        $siswa->tahun_masuk_sd = $request->tahun_masuk_sd;
+        $siswa->user_id = $user->id;
+        $siswa->save();
+
+        // Redirect ke halaman yang dituju setelah berhasil menyimpan data
+        return redirect()->route('siswa-sd.index')->with('success', 'Siswa berhasil ditambahkan.');
     }
 
     // Menampilkan detail data siswa SD
@@ -68,10 +80,10 @@ class SiswaSDController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required',
-            'nis' => 'required|unique:siswas,nis,' . $id,
+            'name' => 'required|string',
+            'nis' => 'required|string|unique:siswas,nis,' . $id,
             'status' => 'required',
-            'tahun_masuk_sd' => 'nullable',
+            'tahun_masuk_sd' => 'nullable|string',
         ]);
 
         $siswa = SiswaSD::findOrFail($id);

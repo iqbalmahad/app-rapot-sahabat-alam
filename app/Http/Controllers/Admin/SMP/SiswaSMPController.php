@@ -38,16 +38,28 @@ class SiswaSMPController extends Controller
     // Menyimpan data siswa SMP baru ke database
     public function store(Request $request)
     {
+        // Validasi input data
         $request->validate([
-            'nis' => 'required|unique:siswa_smp,nis',
-            'tahun_masuk_smp' => 'nullable',
-            // tambahkan validasi lainnya sesuai kebutuhan
+            'name' => 'required|string|max:255',
+            'nis' => 'required|unique:siswas,nis',
+            'tahun_masuk_smp' => 'required|string|max:255',
         ]);
 
-        SiswaSMP::create($request->all());
+        $user = new User();
+        $user->name = $request->name;
+        $user->username = $request->nis;
+        $user->email = null;
+        $user->password = 'password';
+        $user->save();
 
-        return redirect()->route('siswa_smp.index')
-            ->with('success', 'Siswa SMP berhasil ditambahkan.');
+        $siswa = new SiswaSMP();
+        $siswa->nis = $request->nis;
+        $siswa->tahun_masuk_smp = $request->tahun_masuk_smp;
+        $siswa->user_id = $user->id;
+        $siswa->save();
+
+        // Redirect ke halaman yang dituju setelah berhasil menyimpan data
+        return redirect()->route('siswa-smp.index')->with('success', 'Siswa berhasil ditambahkan.');
     }
 
     // Menampilkan detail data siswa SMP
