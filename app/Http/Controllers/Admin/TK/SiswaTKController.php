@@ -42,7 +42,7 @@ class SiswaTKController extends Controller
         // Validasi input data
         $request->validate([
             'name' => 'required|string|max:255',
-            'nis' => 'required|unique:siswas,nis',
+            'nis' => 'required|string|max:255|unique:siswas,nis',
             'tahun_masuk_tk' => 'required|string|max:255',
         ]);
 
@@ -82,7 +82,7 @@ class SiswaTKController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'nis' => 'required|unique:siswas,nis,' . $id,
+            'nis' => 'required|string|max:255|unique:siswas,nis,' . $id,
             'status' => 'required|numeric',
             'tahun_masuk_tk' => 'nullable',
         ]);

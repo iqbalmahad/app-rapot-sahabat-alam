@@ -2,6 +2,7 @@
 
 namespace App\Imports;
 
+use App\Models\Role;
 use App\Models\User;
 use App\Models\Siswa\SiswaSD;
 use Maatwebsite\Excel\Concerns\ToModel;
@@ -31,15 +32,24 @@ class SiswaSDImport implements ToModel
             throw new \Exception($validator->errors()->first());
         }
 
+        // Buat pengguna (user)
+        $user = User::create([
+            'name' => $row[0], // Sesuaikan dengan indeks kolom yang sesuai di array $row
+            'username' => $row[1],
+            'password' => 'password',
+        ]);
+
+        // Tentukan peran pengguna (user role) berdasarkan nama peran
+        $userRole = Role::where('name', 'client')->first();
+
+        // Beri peran kepada pengguna (assign role to user)
+        $user->assignRole($userRole);
+
         // Buat dan simpan model SiswaTK
         SiswaSD::create([
             'nis' => $row[1],
-            'user_id' => User::create([
-                'name' => $row[0], // Sesuaikan dengan indeks kolom yang sesuai di array $row
-                'username' => $row[1],
-                'password' => 'password',
-            ])->id,
-            'tahun_masuk_sd' => $row[2],
+            'user_id' => $user->id,
+            'tahun_masuk_tk' => $row[2],
             // Tambahkan tahun_masuk_sd, tahun_masuk_smp jika ada nilai yang disediakan
         ]);
     }
